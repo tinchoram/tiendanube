@@ -32,8 +32,6 @@ def order_best(data):
         return data
 
 
-
-
 if __name__ == "__main__":
     print("start")
     #URL= 'https://shipping-options-api.herokuapp.com/v1/shipping_options'
