@@ -1,6 +1,6 @@
-import requests
 import json
 import urllib.request, json
+import operator
 
 def getdata():
     """
@@ -22,14 +22,21 @@ def getdata():
         print('Error: ', e.__class__)
 
 def order_best(data):
-    response = []
-    if data is []:
-        return response
-    else:
-        #print(data)
-        data = sorted(data, key=lambda data : data['cost'])
-        data = sorted(data, key=lambda data : data['estimated_days'])
-        return data
+    try:
+        response = []
+        if data is []:
+            return response
+        else:
+            #print(data)
+            #data = sorted(data, key=lambda data : data['cost'])
+            #data = sorted(data, key=lambda data : data['estimated_days'])
+            
+            response = sorted(data, key=lambda data: (data['cost'], data['estimated_days']))
+            
+            return response
+    except Exception as e:
+        print('Error: ', e.__class__)
+    
 
 
 if __name__ == "__main__":
@@ -39,11 +46,11 @@ if __name__ == "__main__":
     data = getdata()
     data = data.get('shipping_options')    
 
-    print(data)
+    print('Request_data: ', data)
 
     response = order_best(data)
 
-    print (response)
+    print ('Response:', response)
     
     
     
